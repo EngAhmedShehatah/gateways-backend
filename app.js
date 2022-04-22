@@ -5,10 +5,6 @@ const path = require("path");
 const gatewayRoutes = require("./routes/gateway.route");
 
 const app = express();
-mongoose.set("useNewUrlParser", true);
-mongoose.set("useFindAndModify", false);
-mongoose.set("useCreateIndex", true);
-mongoose.set("useUnifiedTopology", true);
 mongoose.connect(
   "mongodb+srv://Ahmed:wklPbiQzeydXaH3i@cluster0.tumpp.mongodb.net/gateways?retryWrites=true&w=majority", {
     useNewParser: true,
