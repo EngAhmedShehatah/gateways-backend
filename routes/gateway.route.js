@@ -87,5 +87,42 @@ router.get("/:id", (req,
 router.delete("/:id", (req,
                        res,
                        next) => {
-    Gateway.deleteOne({ })
-})
+    Gateway.deleteOne({_id: req.params.id})
+        .then(() => {
+            return res.status(200).json({
+                message: "gateway deleted successfully"
+            });
+        }).catch(err => {
+        return res.status(500).json({
+            message: "error in delete gateway",
+            error: err
+        });
+    });
+});
+
+// update a gateway
+router.put("/:id", (req,
+                    res,
+                    next) => {
+    const id = req.params.id;
+    Gateway.findById(id).then(gateway => {
+        let data = gateway;
+        data.serialNumber = req.body.serialNumber;
+        data.name = req.body.name;
+        data.ipv4 = req.body.ipv4;
+        data.device = req.body.devices;
+        Gateway.updateOne({_id: id}, data)
+            .then(() => {
+                return res.status(200).json({
+                    message: "gateway updated successfully"
+                });
+            }).catch(err => {
+            return res.status(500).json({
+                message: "error in update gateway",
+                error: err
+            });
+        });
+    });
+});
+
+module.exports = router;

@@ -5,15 +5,17 @@ const path = require("path");
 const gatewayRoutes = require("./routes/gateway.route");
 
 const app = express();
+mongoose.useNewUrlParser = true;
+mongoose.useFindAndModify = false;
+mongoose.useCreateIndex = true;
+mongoose.useUnifiedTopology = true;
 mongoose.connect(
-  "mongodb+srv://Ahmed:wklPbiQzeydXaH3i@cluster0.tumpp.mongodb.net/gateways?retryWrites=true&w=majority", {
-    useNewParser: true,
-    useUnifiedTopology: true
-  }
+  "mongodb+srv://Ahmed:wklPbiQzeydXaH3i@cluster0.tumpp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 ).then(() => {
   console.log("Connected To Database");
-}).catch(() => {
+}).catch((err) => {
   console.log("Connection Failed");
+  console.log(err);
 });
 app.use(express.json);
 app.use(express.urlencoded({extended: false}));
